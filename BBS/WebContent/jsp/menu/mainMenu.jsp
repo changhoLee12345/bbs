@@ -31,10 +31,18 @@
 						<li><a class="menuLink" href="memberList.do">회원관리</a></li>
 					</c:if>
 					<c:if test="${!empty id }">
-					<li>|</li>
-					<li><a class="menuLink" href="logout.do">로그아웃</a></li>
+						<li>|</li>
+						<li><a class="menuLink" href="logout.do">로그아웃</a></li>
 					</c:if>
 				</ul>
+				<c:choose>
+					<c:when test="${!empty id }">
+						<p style="display:inline-block; width: 80px; position: relative; top: -15px; background-color: yellow;">${name }</p>
+					</c:when>
+					<c:otherwise>
+						<p style="display:inline-block; width: 80px; position: relative; top: -15px; background-color: yellow;">guest</p>
+					</c:otherwise>
+				</c:choose>
 			</nav>
 		</div>
 	</div>
