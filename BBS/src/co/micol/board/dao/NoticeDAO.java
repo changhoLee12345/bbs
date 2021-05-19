@@ -26,6 +26,32 @@ public class NoticeDAO extends DAO {
 		}
 	}
 
+	public NoticeVO getNotice(String id) {
+		String sql = "select * from bbs_notice where ntc_no = ?";
+		NoticeVO notice = new NoticeVO();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				notice.setNtcContent(rs.getString("ntc_content"));
+				notice.setNtcFromDate(rs.getDate("ntc_from_date"));
+				notice.setNtcNo(rs.getInt("ntc_no"));
+				notice.setNtcRegDate(rs.getDate("ntc_reg_date"));
+				notice.setNtcTitle(rs.getString("ntc_title"));
+				notice.setNtcToDate(rs.getDate("ntc_to_date"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return notice;
+	}
+
 	public void insertNotice(NoticeVO notice) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -35,10 +61,11 @@ public class NoticeDAO extends DAO {
 		try {
 			psmt = conn.prepareStatement(sql);
 			String fromDate = sdf.format(notice.getNtcFromDate());
+			String toDate = sdf.format(notice.getNtcToDate());
 			System.out.println(fromDate);
 			psmt.setString(1, notice.getNtcTitle());
 			psmt.setString(2, fromDate);
-			psmt.setString(3, fromDate);
+			psmt.setString(3, toDate);
 			psmt.setString(4, notice.getNtcContent());
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 입력.");

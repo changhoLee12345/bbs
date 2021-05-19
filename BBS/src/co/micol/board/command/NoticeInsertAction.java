@@ -37,7 +37,8 @@ public class NoticeInsertAction implements Action {
 
 		dao.insertNotice(notice);
 
-		return "jsp/notice/noticeList.jsp";
+		return "noticeList.do";
+//		return "jsp/notice/noticeList.jsp";
 	}
 
 }

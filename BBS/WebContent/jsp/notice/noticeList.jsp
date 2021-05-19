@@ -38,7 +38,7 @@
 					<c:forEach items="${list }" var="item">
 						<tr id="${item.ntcNo }">
 							<td align="center">${item.ntcNo }</td>
-							<td align="center"><a href="">${item.ntcTitle }</a></td>
+							<td align="center"><a href="<%=request.getContextPath() %>/noticeInfoUpdate.do?id=${item.ntcNo }">${item.ntcTitle }</a></td>
 							<td align="center">${item.ntcFromDate }</td>
 							<td align="center">${item.ntcToDate }</td>
 							<td align="center">${item.ntcRegDate }</td>
