@@ -3,6 +3,7 @@ package co.micol.board.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,33 @@ public class NoticeDAO extends DAO {
 		}
 	}
 
+	public void insertNotice(NoticeVO notice) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		String sql = "INSERT INTO bbs_notice (ntc_no, ntc_title, ntc_from_date, ntc_to_date, ntc_reg_date, ntc_content)\n"
+				+ "values((SELECT nvl(max(ntc_no),0)+1 FROM bbs_notice), ?,?,?, sysdate, ?)\n";
+		try {
+			psmt = conn.prepareStatement(sql);
+			String fromDate = sdf.format(notice.getNtcFromDate());
+			System.out.println(fromDate);
+			psmt.setString(1, notice.getNtcTitle());
+			psmt.setString(2, fromDate);
+			psmt.setString(3, fromDate);
+			psmt.setString(4, notice.getNtcContent());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력.");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+	}
+
 	public List<NoticeVO> getNoticeList() {
 		List<NoticeVO> list = new ArrayList<>();
-		String sql = "select ntc_no, ntc_title, ntc_from_date, ntc_to_date, ntc_content from bbs_notice";
+		String sql = "select ntc_no, ntc_title, ntc_from_date, ntc_to_date, ntc_reg_date, ntc_content from bbs_notice";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -39,6 +64,7 @@ public class NoticeDAO extends DAO {
 				notice.setNtcFromDate(rs.getDate("ntc_from_date"));
 				notice.setNtcToDate(rs.getDate("ntc_to_date"));
 				notice.setNtcRegDate(rs.getDate("ntc_reg_date"));
+				notice.setNtcContent(rs.getString("ntc_content"));
 
 				list.add(notice);
 			}
