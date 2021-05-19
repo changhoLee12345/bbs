@@ -13,7 +13,7 @@ public class MemberDao extends DAO {
 	private ResultSet rs; // select 후 결과셋 받기
 	private MemberVO vo;
 
-	private final String SELECT_ALL = "SELECT * FROM BBS_MEMBER WHERE AUTHOR <> 'admin'";
+	private final String SELECT_ALL = "SELECT * FROM BBS_MEMBER WHERE NVL(AUTHOR, 'user') <> 'admin'";
 	private final String SELECT = "SELECT * FROM BBS_MEMBER WHERE ID = ? ";
 	private final String INSERT = "INSERT INTO BBS_MEMBER(ID,NAME,PASSWORD,ADDRESS,TEL,ENTERDATE) VALUES(?,?,?,?,?,?)";
 	private final String UPDATE = "UPDATE BBS_MEMBER SET NAME = ?, PASSWORD = ?, ADDRESS = ?, TEL = ? WHERE ID = ?";

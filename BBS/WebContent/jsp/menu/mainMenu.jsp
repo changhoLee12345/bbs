@@ -19,7 +19,7 @@
 						<li><a class="menuLink" href="loginForm.do">로그인</a></li>
 						<li>|</li>
 					</c:if>
-					<li><a class="menuLink" href="#">공지사항</a></li>
+					<li><a class="menuLink" href="noticeList.do">공지사항</a></li>
 					<li>|</li>
 					<li><a class="menuLink" href="#">게시판</a></li>
 					<c:if test="${id eq null }">

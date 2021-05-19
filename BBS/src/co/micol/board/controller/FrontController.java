@@ -18,6 +18,7 @@ import co.micol.board.command.MainAction;
 import co.micol.board.command.MemberForm;
 import co.micol.board.command.MemberInsertAction;
 import co.micol.board.command.MemberListAction;
+import co.micol.board.command.NoticeListAction;
 import co.micol.board.common.Action;
 
 @WebServlet("/FrontController")
@@ -39,7 +40,7 @@ public class FrontController extends HttpServlet {
 		map.put("/memberForm.do", new MemberForm()); // 회원가입화면 호출
 		map.put("/memberInsert.do", new MemberInsertAction()); // 회원입력
 		map.put("/logout.do", new LogoutAction()); // 로그아웃
-//		map.put("/loginForm.do", new LoginForm());
+		map.put("/noticeList.do", new NoticeListAction()); // 게시판 리스트
 //		map.put("/loginForm.do", new LoginForm());
 //		map.put("/loginForm.do", new LoginForm());
 

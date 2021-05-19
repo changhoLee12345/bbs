@@ -7,3 +7,11 @@ CREATE TABLE bbs_member (
  enterdate DATE,
  author varchar2(100)
 );
+
+CREATE TABLE bbs_notice(
+ ntc_no NUMBER primary key
+ ,ntc_title VARCHAR2(300)
+ ,ntc_from_date DATE
+ ,ntc_to_date DATE
+ ,ntc_reg_date DATE
+ ,ntc_content VARCHAR2(1000));
