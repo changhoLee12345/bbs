@@ -18,6 +18,7 @@ import co.micol.board.command.MainAction;
 import co.micol.board.command.MemberForm;
 import co.micol.board.command.MemberInsertAction;
 import co.micol.board.command.MemberListAction;
+import co.micol.board.command.MemberListJsonAction;
 import co.micol.board.command.NoticeForm;
 import co.micol.board.command.NoticeInfoAction;
 import co.micol.board.command.NoticeInsertAction;
@@ -48,6 +49,8 @@ public class FrontController extends HttpServlet {
 		map.put("/noticeInsert.do", new NoticeInsertAction());
 		map.put("/noticeInfoUpdate.do", new NoticeInfoAction());
 
+		map.put("/memberListJson.do", new MemberListJsonAction());
+
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -56,17 +59,21 @@ public class FrontController extends HttpServlet {
 		request.setCharacterEncoding("utf-8"); // 한글깨짐 방지를 위해
 
 		String uri = request.getRequestURI();
-		System.out.println("uri : " + uri);
 		String contextPath = request.getContextPath();
-		System.out.println("context: " + contextPath);
 		String path = uri.substring(contextPath.length()); // 실제들어 오는 요청 페이지를 찾음
 		System.out.println("path: " + path);
 
 		Action command = map.get(path);
 		String viewPage = command.exec(request, response); // 명령이 수행되고 나서 보여줄 페이지선택
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage); // 선택한 페이지로 가기
-		dispatcher.forward(request, response);
+		if (request.getMethod().equals("POST")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage); // 선택한 페이지로 가기
+			dispatcher.forward(request, response);
+
+		} else if (request.getMethod().equals("GET")) {
+			response.getWriter().print(viewPage);
+
+		}
 	}
 
 }
