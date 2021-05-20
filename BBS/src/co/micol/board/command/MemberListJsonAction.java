@@ -19,10 +19,11 @@ public class MemberListJsonAction implements Action {
 
 		String json = "[";
 		for (MemberVO vo : list) {
-			json += "{//" + //
-					"\"id\":\"" + vo.getId() + //
-					"\"name\":\"" + vo.getName() + "\"" + //
-					"\"author\":\"" + vo.getAuthor() + "\"" + //
+			json += "{" + //
+					"\"id\":\"" + vo.getId() + "\"" + //
+					",\"name\":\"" + vo.getName() + "\"" + //
+					",\"author\":\"" + vo.getAuthor() + "\"" + //
+					",\"tel\":\"" + vo.getTel() + "\"" + //
 					"}";
 			if (++rowCnt != list.size()) {
 				json += ",";

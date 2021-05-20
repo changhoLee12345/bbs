@@ -66,12 +66,13 @@ public class FrontController extends HttpServlet {
 		Action command = map.get(path);
 		String viewPage = command.exec(request, response); // 명령이 수행되고 나서 보여줄 페이지선택
 
-		if (request.getMethod().equals("POST")) {
+		if (path.equals("/memberListJson.do")) {
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().print(viewPage);
+
+		} else {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage); // 선택한 페이지로 가기
 			dispatcher.forward(request, response);
-
-		} else if (request.getMethod().equals("GET")) {
-			response.getWriter().print(viewPage);
 
 		}
 	}
