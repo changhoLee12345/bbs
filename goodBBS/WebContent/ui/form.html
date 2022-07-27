@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="form">
+        <form action="get.jsp" id="frm" name="frm">
+            Name: <input type="text" name="name" id="name" value="user"><br>
+            Email: <input type="text" name="email" id="email" value="user@email"><br>
+            Pass: <input type="password" name="pass" id="pass" value="user1"><br>
+            <input type="submit" value="Send">
+            <input type="reset" value="Cancel">
+        </form>
+    </div>
+    <script>
+        let frm = document.getElementById('frm');
+        let fdata = new FormData(frm);
+        for (let f of fdata)
+            console.log(f)
+    </script>
+</body>
+
+</html>

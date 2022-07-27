@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let v = [{
+                name: 'Hong'
+            }, {
+                name: 'Hwang'
+            }];
+            v = {
+                name: 'Hong'
+            }
+            console.log(v);
+
+            v = $(v);
+            v = $('#show');
+            console.log(v);
+            // v = 'Hong';
+            // let v2 = objToAry(v);
+            // console.log(v2);
+
+        });
+
+        function objToAry(obj) {
+            let v = [];
+            for (let f in obj) {
+                console.log(`${f}, ${obj[f]}`)
+                v.push(f);
+            }
+            return v;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="show">one</div>
+    <div id="show">two</div>
+</body>
+
+</html>

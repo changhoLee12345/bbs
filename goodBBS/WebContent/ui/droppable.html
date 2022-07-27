@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Droppable - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+    <style>
+        #draggable {
+            width: 100px;
+            height: 100px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px 10px 10px 0;
+        }
+
+        #droppable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            float: left;
+            margin: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        let list = [{
+            name: 'Hong',
+            age: 10
+        }, {
+            name: 'Hwang',
+            age: 20
+        }, {
+            name: 'Park',
+            age: 30
+        }]
+
+
+        $(function () {
+            $.each(list, function (idx, item) {
+                makeData(item);
+            })
+
+            $(".draggable").draggable({
+                start: function (a) {
+                    localStorage.setItem('item', 'a');
+                    let key = a.target.children[0].dataset.val;
+                    localStorage.setItem('key', key);
+                }
+            });
+            $("#droppable").droppable({
+                drop: function (event, ui) {
+                    // let val = $(this).find('p')
+                    // console.log(val);
+                    let key = localStorage.getItem('key');
+                    deleteList(key);
+                    $(this)
+                        .addClass("ui-state-highlight")
+                        .find("p")
+                        .html("Dropped!");
+                }
+            });
+        });
+
+        function deleteList(key) {
+            list.forEach(function (obj, idx) {
+                if (obj.age == key) {
+                    list.splice(idx, 1);
+                }
+            })
+
+            console.log(list);
+        }
+
+        function makeData(obj) {
+            $(document.body).append( //
+                $('<div />').attr('id', 'draggable') //
+                .addClass('ui-widget-content draggable') //
+                .append($('<p data-val="' + obj.age + '" />').text(obj.name + ' ' + obj.age))
+            );
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="draggable" class="ui-widget-content draggable">
+        <p data-val='Drag'>Drag me to my target</p>
+    </div>
+
+    <div id="droppable" class="ui-widget-header">
+        <p>Drop here</p>
+    </div>
+
+
+</body>
+
+</html>
